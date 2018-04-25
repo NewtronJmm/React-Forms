@@ -1,6 +1,11 @@
 import React from "react";
 import TextField  from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
+
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
+
 export default class Form extends React.Component {
   state = {
     id: "",
@@ -21,6 +26,8 @@ export default class Form extends React.Component {
     phoneError: ""
   };
 
+ handleChange = (event, index, value) => this.setState({value});
+
   change = e => {
     //this.props.onChange({ [e.target.name]: e.target.value });
     this.setState({
@@ -31,20 +38,28 @@ export default class Form extends React.Component {
 validate = () =>{
   let isError = false;
   const errors ={
-    idError: "",
-    firstNameError: "",
-    lastNameError: "",
-    addressError: "",
-    ageError: "",
-    departamentError: "",
-    sexError: "",
-    phoneError: ""
+    idError: "It is required",
+    firstNameError: "It is required",
+    lastNameError: "It is required",
+    addressError: "It is required",
+    ageError: "It is required",
+    departamentError: "It is required",
+    sexError: "It is required",
+    phoneError: "It is required"
   };
 
-  if (this.state.firstName.length < 1) {
-    isError = true;
-    errors.usernameError = "firstName needs to be atleast 1 characters long";
-  }
+  if (this.state.id.length < 1 || this.state.firstName.length < 1 || this.state.lastName.length < 1 || this.state.address.length < 1
+  || this.state.age.length < 1 || this.state.departament.length < 1 || this.state.sex.length < 1 || this.state.phone.length < 1) {
+   isError = true;
+   errors.id;
+   errors.firstName;
+   errors.lastName;
+   errors.address;
+   errors.age;
+   errors.departament;
+   errors.sex;
+   errors.phone;
+ }
 
   this.setState({
     ...this.state,
@@ -73,6 +88,7 @@ validate = () =>{
       departament: "",
       departamentError: "",
       sex: "",
+      value: "",
       sexError: "",
       phone: "",
       phoneError: ""
@@ -143,15 +159,18 @@ validate = () =>{
           floatingLabelFixed
         />
         <br />
-        <TextField
+        <SelectField
           name="sex"
           hintText="sexo"
           floatingLabelText="sexo"
-          value={this.state.sex}
-          onChange={e => this.change(e)}
+          value={this.state.sex = this.state.value}
+          onChange={e => this.change(e) , this.handleChange}
           errorText={this.state.sexError}
           floatingLabelFixed
-        />
+        >
+          <MenuItem value={'Hombre'} primaryText="Hombre" />
+          <MenuItem value={'Mujer'} primaryText="Mujer" />
+        </SelectField>
         <br />
         <TextField
           name="phone"
